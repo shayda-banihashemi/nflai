@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "nflai"
+version = "0.1.0"
+description = ""
+authors = ["shayda-banihashemi <shayda.dev@icloud.com>"]
+readme = "README.md"
+packages = [{include = "nflai", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+chromadb = "^0.5.13"
+duckdb = "^1.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
