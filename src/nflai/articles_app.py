@@ -1,3 +1,7 @@
+import pprint
+
+print = pprint.pprint
+
 def articles_gather_data():
     article_docs = []
     with open("/Users/shaydabanihashemi/ws/nflai/data/general/nfl_article.txt") as f:
