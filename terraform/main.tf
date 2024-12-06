@@ -59,7 +59,7 @@ resource "aws_instance" "py_server" {
 }
 
 resource "aws_security_group" "allow_http" {
-  name        = "allow_http_flask_web_app"
+  name        = "allow_http_flask_web_app_1"
   description = "Allow inbound HTTP traffic"
 
   ingress {
