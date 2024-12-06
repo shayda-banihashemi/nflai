@@ -7,9 +7,9 @@ readme = "README.md"
 packages = [{include = "nflai", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 chromadb = "^0.5.13"
-duckdb = "^1.1.1"
+flask = "^3.1.0"
 
 
 [build-system]
