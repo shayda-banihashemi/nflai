@@ -1,8 +1,12 @@
 import os
 import json
+import pathlib
+
+cwd = pathlib.Path.cwd()
+file_dir =  cwd / 'data' / 'weeks'
 
 def weeks_gather_data():
-    directory = "/Users/shaydabanihashemi/ws/nflai/data/"
+    directory = file_dir
     weeks_docs = []
     for file in os.listdir(directory):
         with open(os.path.join(directory, file)) as f:

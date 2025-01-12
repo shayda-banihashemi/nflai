@@ -1,10 +1,12 @@
-import pprint
+import pathlib
 
-print = pprint.pprint
+cwd = pathlib.Path.cwd()
+file_dir =  cwd
+myfile = file_dir / 'data' / 'nfl_article.txt'
 
 def articles_gather_data():
     article_docs = []
-    with open("/Users/shaydabanihashemi/ws/nflai/data/nfl_article.txt") as f:
+    with open(myfile) as f:
         for lines in f:
             line = lines.rstrip()
             article_docs.append(line)

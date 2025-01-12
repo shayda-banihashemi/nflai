@@ -1,14 +1,20 @@
 import os
 import json
+import pathlib
+
+cwd = pathlib.Path.cwd()
+#file_dir =  cwd.parent.parent /'ws' / 'nflai' / 'data' / 'seasons'
+file_dir =  cwd / 'data' / 'seasons'
 
 def seasons_gather_data():
-    directory = "/Users/shaydabanihashemi/ws/nflai/data/"
+    #directory = file_dir
+    print(file_dir)
     season_docs = []
-    for file in os.listdir(directory):
-        with open(os.path.join(directory, file)) as f:
+    for file in os.listdir(file_dir):
+        print(file)
+        with open(os.path.join(file_dir, file)) as f:
             data = f.read()
             raw_data = json.loads(data)
-
     for team in raw_data:
         season_docs.append(f"The {team['Name']} belong to the {team['Conference']} Conference.")
         season_docs.append(f"The {team['Name']} belong to the {team['Conference']} {team['Division']}")

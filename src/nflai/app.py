@@ -1,5 +1,6 @@
 import chromadb
 from flask import Flask
+from peewee import sqlite3
 
 
 import nflai.weeks_app
@@ -23,7 +24,7 @@ def timer(func):
 
     return wrapper_timer
 
-RELOAD_DB = True
+RELOAD_DB = False
 
 chroma_client = chromadb.PersistentClient(
     path="./database",
@@ -59,8 +60,4 @@ def main():
     findings = query()
     return findings
 
-app.run(host='0.0.0.0', port=5000)
-
-
-
-
+app.run(host='0.0.0.0', port=5002)
