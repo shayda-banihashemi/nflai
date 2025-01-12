@@ -11,7 +11,7 @@ if ! sudo apt-get update; then
 fi
 
 # Install necessary packages
-if ! sudo apt-get install -y python3 python3-pip git curl; then
+if ! sudo apt-get install -y python3 python3-pip git curl vim; then
   echo "Failed to install packages"
   exit 1
 fi

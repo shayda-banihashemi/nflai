@@ -1,14 +1,13 @@
 import chromadb
 from flask import Flask
-from peewee import sqlite3
 
 
 import nflai.weeks_app
 import nflai.seasons_app
 import nflai.articles_app
-import duckdb
+
 from chromadb.config import Settings
-from chromadb.utils import embedding_functions
+#from chromadb.utils import embedding_functions
 import functools
 import time
 
