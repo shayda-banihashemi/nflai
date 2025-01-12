@@ -20,7 +20,7 @@ fi
 cd "$WORKDIR" || { echo "Failed to change directory to $WORKDIR"; exit 1; }
 
 # Clone the project
-if ! git clone "https://github.com/proquickly/$PROJ.git"; then
+if ! git clone "https://github.com/shayda-banihashemi/$PROJ.git"; then
   echo "Failed to clone the repository"
   exit 1
 fi
