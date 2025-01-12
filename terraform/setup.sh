@@ -1,8 +1,8 @@
 #!/bin/bash
 
-PROJ="nflai"
+PROJ="tfgha"
 POETRY="/usr/local/bin"
-WORKDIR="/home/ubuntu/ws"
+WORKDIR="/home/ubuntu"
 
 # Update package lists
 if ! sudo apt-get update; then
@@ -38,7 +38,5 @@ sudo -u ubuntu bash
   cd "$WORKDIR/$PROJ"
   [ -f poetry.lock ] && rm poetry.lock
   $POETRY/poetry install
-  cd "$WORKDIR/$PROJ"
-  nohup $POETRY/poetry run python src/$PROJ/app.py &
-
-
+  cd "$WORKDIR/$PROJ/src/$PROJ"
+  nohup $POETRY/poetry run python app.py &
