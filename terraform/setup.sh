@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJ="tfgha"
+PROJ="nflai"
 POETRY="/usr/local/bin"
 WORKDIR="/home/ubuntu"
 
