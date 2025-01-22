@@ -1,15 +1,16 @@
 import chromadb
 from flask import Flask
-
+from flask import render_template
 
 import nflai.weeks_app
 import nflai.seasons_app
 import nflai.articles_app
-import duckdb
+# import duckdb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
 import functools
 import time
+
 
 def timer(func):
     @functools.wraps(func)
@@ -23,13 +24,15 @@ def timer(func):
 
     return wrapper_timer
 
+
 RELOAD_DB = True
 
 chroma_client = chromadb.PersistentClient(
     path="./database",
     settings=Settings(anonymized_telemetry=False))
 
-collection = chroma_client.get_or_create_collection(name="my_collection")
+collection = chroma_client.get_or_create_collection(name="nfl")
+
 
 def agg_data():
     seasons = nflai.seasons_app.seasons_gather_data()
@@ -38,9 +41,11 @@ def agg_data():
     all_docs = articles + weeks + seasons
     return all_docs
 
+
 def load_data(docs):
-    ids = [f"id{num}" for num in range(1, len(docs) +1 )]
+    ids = [f"id{num}" for num in range(1, len(docs) + 1)]
     collection.upsert(documents=docs, ids=ids)
+
 
 @timer
 def query():
@@ -49,7 +54,9 @@ def query():
         n_results=2)
     return run_query
 
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def main():
@@ -57,10 +64,7 @@ def main():
         results = agg_data()
         load_data(results)
     findings = query()
-    return findings
+    return render_template('findings.html', findings=findings)
+
 
 app.run(host='0.0.0.0', port=5000)
-
-
-
-
