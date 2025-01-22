@@ -49,10 +49,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /home/app/app
 EXPOSE 5000
-COPY --chown=andy pyproject.toml .
-COPY --chown=andy src /home/app/app/src/
-COPY --chown=andy tests /home/app/app/tests/
-COPY --chown=andy data data/
+RUN export CURRENT_USER=$(whoami) && export CURRENT_GROUP=$(id -gn ${CURRENT_USER})
+COPY --chown=${CURRENT_USER} pyproject.toml .
+COPY --chown=${CURRENT_USER} src /home/app/app/src/
+COPY --chown=${CURRENT_USER} tests /home/app/app/tests/
+COPY --chown=${CURRENT_USER} dalta data/
 RUN /home/app/.local/bin/poetry install
 
 CMD ["poetry", "run", "python", "src/nflai/app.py"]
