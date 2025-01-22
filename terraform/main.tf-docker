@@ -1,0 +1,36 @@
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.0"
+    }
+  }
+}
+
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
+
+# Build the Docker image from a Dockerfile
+resource "docker_image" "custom_image" {
+  name         = "custom-image:latest"
+  build {
+    context    = "./app"          # Path to the folder containing the Dockerfile
+    dockerfile = "Dockerfile"     # Optionally specify Dockerfile (if not default)
+  }
+}
+
+# Deploy a container from the built image
+resource "docker_container" "custom_container" {
+  image      = docker_image.custom_image.image_id
+  name       = "custom-container"
+  depends_on = [docker_image.custom_image]
+  command    = ["sleep", "infinity"]     # Example long-running command
+  env        = [
+    "EXAMPLE_VAR=value"                 # Example environment variable
+  ]
+}
+
+output "container_id" {
+  value = docker_container.custom_container.id
+}
