@@ -1,7 +1,15 @@
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y \
-  zsh curl build-essential wget libreadline-dev \
-  zlib1g-dev libsqlite3-dev unzip libssl-dev libffi-dev
+  zsh \
+  curl \
+  build-essential \
+  wget \
+  libreadline-dev \
+  zlib1g-dev \
+  libsqlite3-dev \
+  unzip \
+  libssl-dev \
+  libffi-dev
 
 SHELL ["/bin/zsh", "-c", "-o", "pipefail"]
 RUN cd /tmp \
@@ -53,7 +61,7 @@ RUN export CURRENT_USER=$(whoami) && export CURRENT_GROUP=$(id -gn ${CURRENT_USE
 COPY --chown=${CURRENT_USER} pyproject.toml .
 COPY --chown=${CURRENT_USER} src /home/app/app/src/
 COPY --chown=${CURRENT_USER} tests /home/app/app/tests/
-COPY --chown=${CURRENT_USER} dalta data/
+COPY --chown=${CURRENT_USER} data data/
 RUN /home/app/.local/bin/poetry install
 
 CMD ["poetry", "run", "python", "src/nflai/app.py"]
