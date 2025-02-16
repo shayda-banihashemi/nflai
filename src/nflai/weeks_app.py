@@ -1,26 +1,25 @@
 import os
+import requests
 import json
-import pathlib
+import pandas as pd
 
-cwd = pathlib.Path.cwd()
-file_dir =  cwd / 'data' / 'weeks'
+def getDataFrame():
+    response = requests.get("https://api.sportsdata.io/v3/nfl/stats/json/ScoresFinal/2023?key=1455ced235a74c71862688fb1a38dc7f")
+    print(response.status_code)
+    data = json.loads(response.text)
+    df = pd.DataFrame(data)
+    return df
 
-def weeks_gather_data():
-    directory = file_dir
+def weeks_gather_data(data_frame):
     weeks_docs = []
-    for file in os.listdir(directory):
-        with open(os.path.join(directory, file)) as f:
-            data = f.read()
-            raw_data = json.loads(data)
-            for game in raw_data:
-                if game['HomeScore'] > game['AwayScore']:
-                    weeks_docs.append(f"The home team {game['HomeTeam']} won against the away team {game['AwayTeam']} by "
-                                f"{game['HomeScore'] - game['AwayScore']} points on {game['StadiumDetails']['PlayingSurface']} "
-                                f"{game['StadiumDetails']['Type']}")
-                else:
-                    weeks_docs.append(f"The away team {game['AwayTeam']} won against the home team {game['HomeTeam']} by "
-                                f"{game['AwayScore'] - game['HomeScore']} points")
+    for row in data_frame.itertuples():
+        if row.HomeScore > row.AwayScore:
+            weeks_docs.append(f"The home team {row.HomeTeam} won against the away team {row.AwayTeam} by "
+                              f"{row.HomeScore - row.AwayScore} points.")
+        else:
+            weeks_docs.append(f"The away team {row.AwayTeam} won against the home team {row.HomeTeam} by "
+                              f"{row.AwayScore - row.HomeScore} points")
     return weeks_docs
 
 if __name__ == "__main__":
-    weeks_gather_data()
+    var = weeks_gather_data(getDataFrame())

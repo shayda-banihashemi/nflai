@@ -1,12 +1,10 @@
 import chromadb
 from flask import Flask
-from peewee import sqlite3
-
 
 import nflai.weeks_app
 import nflai.seasons_app
 import nflai.articles_app
-import duckdb
+# import duckdb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
 import functools
@@ -60,4 +58,4 @@ def main():
     findings = query()
     return findings
 
-app.run(host='0.0.0.0', port=5002)
+app.run(host='0.0.0.0', port=5000)
